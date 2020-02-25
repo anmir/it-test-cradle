@@ -1,9 +1,9 @@
-package org.example.books
+package org.example.api.books
 
-import org.example.ApiException
-import org.example.ApiResult
+import org.example.api.ApiException
+import org.example.api.ApiResult
 
-interface ServiceApi {
+interface BooksApi {
 
     fun getAllBooks(): ApiResult<List<Book>, ApiException>
 

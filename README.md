@@ -1,4 +1,5 @@
 todo:
+- handle different types of exceptions
 - embedded deserialization
 - db access
 - preconditions

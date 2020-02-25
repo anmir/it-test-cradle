@@ -1,11 +1,11 @@
-package org.example.books
+package org.example.api
 
-import org.example.ApiResult
-import org.example.getOrFail
+import org.example.api.books.Book
+import org.example.api.books.BooksApiImpl
 
 // элементы сценариев
 fun main(args: Array<String>) {
-    val serviceApi = ServiceApiImpl()
+    val serviceApi = BooksApiImpl()
 
     val book = serviceApi.getBook("1").getOrFail()
     println("get one : $book")

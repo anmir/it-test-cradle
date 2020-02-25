@@ -1,28 +1,41 @@
 package org.example
 
-import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import io.ktor.application.call
+import io.ktor.application.install
+import io.ktor.features.ContentNegotiation
 import io.ktor.http.ContentType
 import io.ktor.http.HttpStatusCode.Companion.BadRequest
-import io.ktor.request.receiveText
+import io.ktor.jackson.jackson
+import io.ktor.request.receive
+import io.ktor.response.respond
 import io.ktor.response.respondText
 import io.ktor.routing.get
 import io.ktor.routing.post
 import io.ktor.routing.routing
 import io.ktor.server.engine.embeddedServer
 import io.ktor.server.netty.Netty
-import org.example.books.Book
-import org.example.books.toJson
+import org.example.api.books.toJson
+
 
 class ServerException(
     val statusCode: String,
     val errorMessage: String
 )
 
+data class ServerBook(
+    val id: String,
+    val name: String
+)
+
 fun main() {
     val server = embeddedServer(Netty, port = 8080) {
-        val books = mutableListOf<Book>()
-        books += Book("1", "azbuka")
+
+        val books = mutableListOf<ServerBook>().also { it += ServerBook("1", "azbuka") }
+
+        install(ContentNegotiation) {
+            jackson {}
+        }
+
         routing {
             get("/") {
                 call.respondText("Hello World!", ContentType.Text.Plain)
@@ -36,24 +49,18 @@ fun main() {
             }
 
             post("/book") {
-                val receiveText = call.receiveText()
-                val book = jacksonObjectMapper().readValue(receiveText, Book::class.java)
-                books += book
-                call.respondText(book.toJson())
+                //also, we can get control of raw text(forward it with minimal effort(hello, spring) and parse as we want)
+                //val book = jacksonObjectMapper().readValue(receiveText, Book::class.java)
+                val newBook = call.receive(ServerBook::class).also {
+                    books += it
+                }
+                call.respond(newBook)
             }
             post("/book/wrong") {
-                val receiveText = call.receiveText()
-                val book = jacksonObjectMapper().readValue(receiveText, Book::class.java)
+                val book = call.receive(ServerBook::class)
                 with(call) {
                     response.status(BadRequest)
-                    respondText(
-                        """
-                    {
-                    "statusCode": "$BadRequest",
-                    "errorMessage": "wrong book id: $${book.id}"
-                    }
-                """.trimIndent()
-                    )
+                    respond(ServerException(BadRequest.value.toString(), "wrong book id: $${book.id}"))
                 }
             }
         }
