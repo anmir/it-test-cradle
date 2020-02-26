@@ -1,4 +1,8 @@
-todo:
+###USAGE
+- run mockserver.kt
+- run test.kt 
+
+###todo:
 - handle different types of exceptions - ApiException с JacksonSubTypes, где errorCode->JacksonType 
 - embedded deserialization
 - db access
