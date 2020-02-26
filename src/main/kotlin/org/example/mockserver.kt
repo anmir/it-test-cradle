@@ -14,7 +14,7 @@ import io.ktor.routing.post
 import io.ktor.routing.routing
 import io.ktor.server.engine.embeddedServer
 import io.ktor.server.netty.Netty
-import org.example.api.books.toJson
+import org.example.api.common.toJson
 
 
 class ServerException(
@@ -37,13 +37,16 @@ fun main() {
         }
 
         routing {
+
             get("/") {
                 call.respondText("Hello World!", ContentType.Text.Plain)
             }
+
             get("/book/{id}") {
                 val bookId = call.parameters["id"]
                 call.respondText(books.find { it.id == bookId }!!.toJson())
             }
+
             get("/books") {
                 call.respondText(books.toJson())
             }
@@ -56,6 +59,7 @@ fun main() {
                 }
                 call.respond(newBook)
             }
+
             post("/book/wrong") {
                 val book = call.receive(ServerBook::class)
                 with(call) {

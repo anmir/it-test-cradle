@@ -1,7 +1,7 @@
 package org.example.api.books
 
-import org.example.api.ApiException
-import org.example.api.ApiResult
+import org.example.api.common.ApiException
+import org.example.api.common.ApiResult
 
 interface BooksApi {
 
