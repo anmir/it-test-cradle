@@ -37,7 +37,7 @@ class BooksApiImpl(
     }
 
     private companion object {
-        val defaultFuelManager = FuelManager.instance.also {
+        val defaultFuelManager = FuelManager().also {
             it.basePath = "http://localhost:8080"
         }
     }
