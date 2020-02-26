@@ -14,6 +14,7 @@ import io.ktor.routing.post
 import io.ktor.routing.routing
 import io.ktor.server.engine.embeddedServer
 import io.ktor.server.netty.Netty
+import kotlinx.coroutines.delay
 import org.example.api.common.toJson
 
 
@@ -67,6 +68,21 @@ fun main() {
                     respond(ServerException(BadRequest.value.toString(), "wrong book id: $${book.id}"))
                 }
             }
+
+            get("/one") {
+                delay(1000)
+                call.respondText("good", ContentType.Text.Plain)
+            }
+
+            get("/two") {
+                delay(2000)
+                call.respondText("bad", ContentType.Text.Plain)
+            }
+            get("/three") {
+                delay(3000)
+                call.respondText("good", ContentType.Text.Plain)
+            }
+
         }
     }
     server.start(wait = true)
