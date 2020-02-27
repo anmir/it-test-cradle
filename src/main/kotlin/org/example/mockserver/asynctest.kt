@@ -1,4 +1,4 @@
-package org.example
+package org.example.mockserver
 
 import com.github.kittinunf.fuel.coroutines.awaitStringResponseResult
 import com.github.kittinunf.fuel.httpGet

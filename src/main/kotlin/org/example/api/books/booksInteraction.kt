@@ -1,7 +1,5 @@
-package org.example.api
+package org.example.api.books
 
-import org.example.api.books.Book
-import org.example.api.books.BooksApiImpl
 import org.example.api.common.ApiResult
 import org.example.api.common.getOrFail
 
