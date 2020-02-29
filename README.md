@@ -21,3 +21,6 @@ AuthorsApi.session {
 - preconditions
 - flow separation
 - allure
+### 
+- gradle kotlin mirgation
+- jenkins kotlin (like https://github.com/ibook/jenkins-kotlin/blob/master/Jenkinsfile)
