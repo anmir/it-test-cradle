@@ -7,8 +7,8 @@ import io.ktor.routing.routing
 import io.ktor.server.engine.embeddedServer
 import io.ktor.server.netty.Netty
 
-fun main() {
-    val server = embeddedServer(Netty, port = 8080) {
+object MockServerApp {
+    private val server = embeddedServer(Netty, port = 8080) {
         install(ContentNegotiation) { jackson {} }
         routing {
             ping()
@@ -17,6 +17,19 @@ fun main() {
             authors()
         }
     }
-    server.start(wait = true)
+
+    fun run() {
+        server.start(wait = true)
+    }
+
+    fun shutdown() {
+        server.stop(defaultTimeout, defaultTimeout)
+    }
+
+    private const val defaultTimeout = 2000L
+
 }
 
+fun main() {
+    MockServerApp.run()
+}
