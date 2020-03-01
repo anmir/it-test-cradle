@@ -1,29 +1,35 @@
 package org.example
 
-import io.qameta.allure.Feature
+import com.github.kittinunf.fuel.httpGet
 import io.qameta.allure.Severity
 import io.qameta.allure.SeverityLevel
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.ObsoleteCoroutinesApi
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.newSingleThreadContext
 import org.example.api.books.BooksApi
 import org.example.api.books.BooksApiImpl
 import org.example.api.common.getOrFail
 import org.example.mockserver.MockServerApp
-import org.junit.jupiter.api.AfterAll
-import org.junit.jupiter.api.Assertions
-import org.junit.jupiter.api.BeforeAll
-import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.*
 
 
-class HelloTest {
+class BooksTest {
 
     private val serviceApi: BooksApi = BooksApiImpl()
 
     @Test
-    @Feature("Get book by id")
+    @DisplayName("ping mock сервера")
     @Severity(SeverityLevel.CRITICAL)
-    fun testOutput() {
+    fun testPing() {
+        val (_, response, _) = "http://localhost:8080/ping".httpGet().responseString()
+        Assertions.assertEquals(200, response.statusCode)
+    }
+
+    @Test
+    @DisplayName("Получение книг по id")
+    @Severity(SeverityLevel.CRITICAL)
+    fun testGetBookById() {
         val book = serviceApi.getBook("1").getOrFail()
         Assertions.assertNotNull(book)
         Assertions.assertEquals("1", book.id)
@@ -31,7 +37,10 @@ class HelloTest {
     }
 
     private companion object {
+
+        @ObsoleteCoroutinesApi
         private val testServerThread = newSingleThreadContext("test-server")
+
         @BeforeAll
         @JvmStatic
         fun setUp() {

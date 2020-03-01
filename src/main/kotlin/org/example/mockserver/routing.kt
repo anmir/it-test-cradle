@@ -14,7 +14,7 @@ import org.example.api.authors.Author
 import org.example.api.common.toJson
 
 fun Routing.ping() {
-    get("/") {
+    get("/ping") {
         call.respondText("""{"status": "up"}""", ContentType.Application.Json)
     }
 }
@@ -35,8 +35,6 @@ fun Routing.books() {
     }
 
     post("/book") {
-        //also, we can get control of raw text(forward it with minimal effort(hello, spring) and parse as we want)
-        //val book = jacksonObjectMapper().readValue(receiveText, Book::class.java)
         val newBook = call.receive(ServerBook::class).also {
             books += it
         }
