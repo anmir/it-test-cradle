@@ -41,6 +41,7 @@ class BooksTest {
         @ObsoleteCoroutinesApi
         private val testServerThread = newSingleThreadContext("test-server")
 
+        @ObsoleteCoroutinesApi
         @BeforeAll
         @JvmStatic
         fun setUp() {
@@ -49,6 +50,7 @@ class BooksTest {
             }
         }
 
+        @ObsoleteCoroutinesApi
         @AfterAll
         @JvmStatic
         fun shutdown() {

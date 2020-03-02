@@ -24,6 +24,7 @@
         <exposed.version>0.10.4</exposed.version>
         <allure-junit5.version>2.13.2</allure-junit5.version>
         <aspectj.version>1.9.5</aspectj.version>
+        <serialization.version>0.14.0</serialization.version>
     </properties>
 
     <dependencies>
@@ -108,6 +109,12 @@
             <version>${kotlin.version}</version>
         </dependency>
         <dependency>
+            <groupId>org.jetbrains.kotlinx</groupId>
+            <artifactId>kotlinx-serialization-runtime</artifactId>
+            <version>${serialization.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
             <version>${logback.version}</version>
@@ -163,6 +170,18 @@
                         </goals>
                     </execution>
                 </executions>
+                <configuration>
+                    <compilerPlugins>
+                        <plugin>kotlinx-serialization</plugin>
+                    </compilerPlugins>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.jetbrains.kotlin</groupId>
+                        <artifactId>kotlin-maven-serialization</artifactId>
+                        <version>${kotlin.version}</version>
+                    </dependency>
+                </dependencies>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -187,7 +206,9 @@
                 <version>2.10.0</version>
                 <configuration>
                     <reportVersion>${allure-junit5.version}</reportVersion>
-                    <allureDownloadUrl>https://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline/${allure-junit5.version}/allure-commandline-${allure-junit5.version}.zip</allureDownloadUrl>
+                    <allureDownloadUrl>
+                        https://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline/${allure-junit5.version}/allure-commandline-${allure-junit5.version}.zip
+                    </allureDownloadUrl>
                 </configuration>
             </plugin>
         </plugins>
@@ -201,6 +222,11 @@
             <id>exposed</id>
             <name>exposed</name>
             <url>https://dl.bintray.com/kotlin/exposed</url>
+        </repository>
+        <repository>
+            <id>bintray-kotlin-kotlinx</id>
+            <name>bintray</name>
+            <url>https://kotlin.bintray.com/kotlinx</url>
         </repository>
     </repositories>
 
