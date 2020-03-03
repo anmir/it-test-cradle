@@ -25,6 +25,7 @@
         <allure-junit5.version>2.13.2</allure-junit5.version>
         <aspectj.version>1.9.5</aspectj.version>
         <serialization.version>0.14.0</serialization.version>
+        <kodein.version>6.5.0</kodein.version>
     </properties>
 
     <dependencies>
@@ -62,6 +63,11 @@
             <groupId>org.jetbrains.exposed</groupId>
             <artifactId>exposed</artifactId>
             <version>${exposed.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.kodein.di</groupId>
+            <artifactId>kodein-di-generic-jvm</artifactId>
+            <version>${kodein.version}</version>
         </dependency>
         <dependency>
             <groupId>com.h2database</groupId>
