@@ -6,11 +6,14 @@ import io.ktor.jackson.jackson
 import io.ktor.routing.routing
 import io.ktor.server.engine.embeddedServer
 import io.ktor.server.netty.Netty
+import org.koin.core.context.startKoin
 
 object MockServerApp {
+
     private val server = embeddedServer(Netty, port = 8080) {
         install(ContentNegotiation) { jackson {} }
         routing {
+            mock()
             ping()
             books()
             delays()
@@ -18,7 +21,14 @@ object MockServerApp {
         }
     }
 
+    private fun koin() {
+        startKoin {
+            modules(mockServiceModule)
+        }
+    }
+
     fun run() {
+        koin()
         server.start(wait = true)
     }
 

@@ -12,18 +12,41 @@ import io.ktor.routing.post
 import kotlinx.coroutines.delay
 import org.example.api.authors.Author
 import org.example.api.common.toJson
+import org.koin.core.qualifier.named
+import org.koin.ktor.ext.inject
 
 fun Routing.ping() {
     get("/ping") {
+
         call.respondText("""{"status": "up"}""", ContentType.Application.Json)
     }
 }
 
+fun Routing.mock() {
+    val mockService1: MockService by inject(named("mock1"))
+    val mockService2: MockService by inject(named("mock2"))
+    val mockService3: MockService by inject(named("mock3"))
+
+    get("/mock1") {
+        call.respond(mockService1.tukTuk())
+    }
+
+    get("/mock2") {
+        call.respond(mockService2.tukTuk())
+    }
+
+    get("/mock3") {
+        call.respond(mockService3.tukTuk())
+    }
+
+}
+
 fun Routing.books() {
-    val books = mutableListOf<ServerBook>().also { it += ServerBook(
-        "1",
-        "azbuka"
-    )
+    val books = mutableListOf<ServerBook>().also {
+        it += ServerBook(
+            "1",
+            "azbuka"
+        )
     }
     get("/book/{id}") {
         val bookId = call.parameters["id"]
@@ -54,7 +77,6 @@ fun Routing.books() {
         }
     }
 }
-
 
 
 fun Routing.delays() {

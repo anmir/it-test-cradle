@@ -1,5 +1,9 @@
 package org.example.mockserver
 
+import org.koin.core.qualifier.named
+import org.koin.dsl.module
+
+
 interface MockService {
 
     fun tukTuk(): KtoTam
@@ -31,4 +35,8 @@ data class KtoTam(
     val name: String = "Почтальон Печкин"
 )
 
-
+val mockServiceModule = module {
+    single<MockService>(named("mock1")) { MockService1() }
+    single<MockService>(named("mock2")) { MockService2() }
+    single<MockService>(named("mock3")) { MockService3() }
+}
