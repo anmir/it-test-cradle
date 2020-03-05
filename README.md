@@ -24,6 +24,8 @@ AuthorsApi.session {
 ### 
 - gradle kotlin mirgation
 - jenkins kotlin (like https://github.com/ibook/jenkins-kotlin/blob/master/Jenkinsfile)
+###
+- add ci
 
 ###
 - resolve:
