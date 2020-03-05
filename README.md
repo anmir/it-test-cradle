@@ -1,3 +1,5 @@
+[![CircleCI](https://circleci.com/gh/anmir/it-test-cradle/tree/master.svg?style=svg)](https://circleci.com/gh/anmir/it-test-cradle/tree/master)
+
 ###USAGE
 - run mockserver/app.kt (Ktor)
 - run books/booksInteraction.kt (Fuel)
