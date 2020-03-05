@@ -12,8 +12,11 @@ import org.example.api.books.BooksApiImpl
 import org.example.api.common.getOrFail
 import org.example.mockserver.MockServerApp
 import org.junit.jupiter.api.*
+import org.junit.jupiter.api.condition.EnabledOnOs
+import org.junit.jupiter.api.condition.OS
 
 
+@EnabledOnOs(OS.WINDOWS)
 class BooksTest {
 
     private val serviceApi: BooksApi = BooksApiImpl()
