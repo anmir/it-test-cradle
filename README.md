@@ -1,4 +1,4 @@
-[![CircleCI](https://circleci.com/gh/anmir/it-test-cradle/tree/master.svg?style=svg)](https://circleci.com/gh/anmir/it-test-cradle/tree/master)
+TEST RUN : [![CircleCI](https://circleci.com/gh/anmir/it-test-cradle/tree/master.svg?style=svg)](https://circleci.com/gh/anmir/it-test-cradle/tree/master)
 
 ###USAGE
 - run mockserver/app.kt (Ktor)
